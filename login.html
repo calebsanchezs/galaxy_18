@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Para Ti ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #ffc1cc 100%);
+            overflow: hidden;
+        }
+
+        /* Fondo decorativo con corazones flotantes */
+        .bg-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .login-container {
+            position: relative;
+            width: 380px;
+            max-width: 90%;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Foto de perfil con la imagen que subiste */
+        .profile-pic-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, #ff4d6d, #ffafbd);
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .heart-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #ff4d6d;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border: 3px solid white;
+            font-size: 14px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h2 {
+            color: #444;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .sub-text {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        /* Estilo del Calendario */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ff4d6d;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
+            color: #555;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        input[type="date"]:focus {
+            border-color: #ff4d6d;
+            background: white;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            background: #ff4d6d;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2);
+        }
+
+        .login-btn:hover {
+            background: #ff1a4a;
+            transform: translateY(-2px);
+        }
+
+        #error-msg {
+            margin-top: 15px;
+            color: #d81b60;
+            font-size: 0.85rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="profile-pic-container">
+            <img src="caleb3.png" alt="Mariana" class="profile-pic">
+            <div class="heart-badge">❤️</div>
+        </div>
+
+        <h2>Hola, Preciosa</h2>
+        <p class="sub-text">Selecciona nuestra fecha para entrar</p>
+
+        <div class="input-group">
+            <label for="date">¿Cuándo empezó todo?</label>
+            <input type="date" id="login-date">
+        </div>
+
+        <button class="login-btn" onclick="validateDate()">Abrir Regalo</button>
+        
+        <p id="error-msg">Esa no es la fecha, inténtalo de nuevo amor... ❤️</p>
+    </div>
+
+    <script>
+        function validateDate() {
+    const inputDate = document.getElementById('login-date').value;
+    if (inputDate === "2026-04-18") {
+        // Redirige a la página de inicio
+        window.location.href = "inicio.html"; 
+    } else {
+        document.getElementById('error-msg').style.display = "block";
+    }
+}
+
+    </script>
+</body>
+</html>

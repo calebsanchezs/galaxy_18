@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia en Fotos ❤️</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0c; /* Fondo oscuro profundo tipo espacio */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff4d6d; text-shadow: 0 0 15px rgba(255, 77, 109, 0.5); }
+        p.subtitle { opacity: 0.7; font-weight: 300; letter-spacing: 1px; margin-top: 10px; }
+
+        /* --- Estilos de la Línea de Tiempo (Timeline) --- */
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* La línea central */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to bottom, transparent, #ff4d6d, transparent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+            z-index: 1;
+        }
+
+        /* Contenedor de cada evento */
+        .timeline-event {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            z-index: 2;
+        }
+
+        /* Círculos en la línea */
+        .timeline-event::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            background: white;
+            border: 4px solid #ff4d6d;
+            border-radius: 50%;
+            top: 30px;
+            z-index: 3;
+            box-shadow: 0 0 10px #ff4d6d;
+        }
+
+        /* Alineación Alternada (Izquierda/Derecha) */
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; text-align: left; }
+
+        .left::after { right: -10px; }
+        .right::after { left: -10px; }
+
+        /* --- Diseño de la Tarjeta (Glassmorphism Pro) --- */
+        .moment-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto Glow al hacer hover */
+        .moment-card:hover {
+            border-color: rgba(255, 77, 109, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* Contenedor de la Imagen */
+        .image-wrapper {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* Efecto de zoom en la foto al hover */
+        .moment-card:hover .image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        /* Textos del Momento */
+        .date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ff4d6d;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Botón Volver (Estilo Universo) */
+        .btn-back {
+            position: fixed;
+            top: 20px; left: 20px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            color: #ff4d6d;
+            background: rgba(255, 77, 109, 0.1);
+            border-color: #ff4d6d;
+        }
+
+        /* Decoración de fondo (Glows) */
+        .glow {
+            position: fixed;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        /* Media Query para Celulares (Pone todo en una columna) */
+        @media screen and (max-width: 768px) {
+            .timeline-container::after { left: 30px; }
+            .timeline-event { width: 100%; padding-left: 70px; padding-right: 20px; text-align: left; }
+            .left::after, .right::after { left: 20px; }
+            .right { left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow" style="top: -100px; left: -100px;"></div>
+    <div class="glow" style="bottom: 100px; right: -100px;"></div>
+
+    <a href="inicio.html" class="btn-back">← VOLVER</a>
+
+    <header>
+        <h1 data-aos="fade-down">Nuestros Momentos</h1>
+        <p class="subtitle" data-aos="fade-up" data-aos-delay="300">Un viaje por nuestra historia, foto a foto ❤️</p>
+    </header>
+
+    <div class="timeline-container">
+
+        <div class="timeline-event left" data-aos="fade-right">
+            <div class="moment-card">
+                <div class="image-wrapper">
+                    <img src="novia.jpeg" alt="Nuestro Comienzo">
+                </div>
+                <span class="date">18 ABRIL 2026</span>
+                <p class="description">El día que aceptastes ser mi Novia. Te amo Amor ❤️</p>
+            </div>
+        </div>
+
+        <div class="timeline-event right" data-aos="fade-left">
+            <div class="moment-card">
+                <div class="image-wrapper">
+                    <img src="foto2.jpg" alt="Nuestra Primera Cita">
+                </div>
+                <span class="date">25 MAYO 2026</span>
+                <p class="description">Falta</p>
+            </div>
+        </div>
+
+        <div class="timeline-event left" data-aos="fade-right">
+            <div class="moment-card">
+                <div class="image-wrapper">
+                    <img src="foto3.jpg" alt="Primer Viaje">
+                </div>
+                <span class="date">02 Mayo 2026</span>
+                <p class="description">Falta</p>
+            </div>
+        </div>
+
+        <div class="timeline-event right" data-aos="fade-left">
+            <div class="moment-card">
+                <div class="image-wrapper">
+                    <img src="foto4.jpg" alt="Un Día Cualquiera">
+                </div>
+                <span class="date">09 Mayo 2026</span>
+                <p class="description">Falta</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="text-align: center; padding: 40px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 1px;">
+        Nuestra historia continua... ❤️
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializamos las animaciones con una duración suave
+        AOS.init({
+            duration: 1000, // 1 segundo de animación
+            once: true // Solo animar la primera vez que se ve al hacer scroll
+        });
+    </script>
+</body>
+</html>

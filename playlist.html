@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Playlist ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #1e1e2e 0%, #0a0a0c 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .btn-back {
+            position: fixed;
+            top: 20px; left: 20px;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .btn-back:hover { color: #ff4d6d; border-color: #ff4d6d; }
+
+        .player-card {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .album-art {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .disk {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+            animation: rotate 10s linear infinite;
+            animation-play-state: paused;
+            transition: background-image 0.5s ease-in-out;
+            background-color: #333; /* Color de respaldo */
+        }
+
+        .disk.playing { animation-play-state: running; }
+
+        .disk::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 35px; height: 35px;
+            background: #1e1e2e;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .song-info h2 { font-size: 1.3rem; color: #ff4d6d; margin-bottom: 5px; }
+        .song-info p { font-size: 0.85rem; opacity: 0.6; margin-bottom: 15px; }
+
+        .waves { display: flex; justify-content: center; align-items: flex-end; gap: 3px; height: 25px; margin-bottom: 20px; }
+        .bar { width: 4px; height: 5px; background: #ff4d6d; border-radius: 10px; animation: up-down 0.5s ease-in-out infinite alternate; animation-play-state: paused; }
+        .bar.playing { animation-play-state: running; }
+        @keyframes up-down { 0% { height: 5px; } 100% { height: 25px; } }
+
+        .controls { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 25px; }
+        .control-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; transition: 0.3s; }
+        .control-btn:hover { color: #ff4d6d; transform: scale(1.1); }
+
+        .play-btn { width: 65px; height: 65px; background: #ff4d6d; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3); border: none; color: white; cursor: pointer; font-size: 1.5rem; }
+
+        .song-list { text-align: left; max-height: 160px; overflow-y: auto; padding-right: 5px; margin-top: 10px;}
+        .song-item { display: flex; justify-content: space-between; padding: 12px 15px; border-radius: 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.05); font-size: 0.8rem; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+        .song-item:hover { background: rgba(255, 77, 109, 0.15); }
+        .song-item.active { border-color: #ff4d6d; background: rgba(255, 77, 109, 0.2); color: #ff4d6d; font-weight: 600; }
+
+        .song-list::-webkit-scrollbar { width: 4px; }
+        .song-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <a href="inicio.html" class="btn-back">← VOLVER</a>
+
+    <div class="player-card">
+        <div class="album-art">
+            <div class="disk" id="disk"></div>
+        </div>
+
+        <div class="song-info">
+            <h2 id="song-title">Cargando...</h2>
+            <p id="song-artist">Artista</p>
+        </div>
+
+        <div class="waves">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" id="prevBtn">⏮</button>
+            <button class="play-btn" id="playBtn">▶</button>
+            <button class="control-btn" id="nextBtn">⏭</button>
+        </div>
+
+        <div class="song-list" id="playlist">
+            </div>
+    </div>
+
+    <audio id="audio-player"></audio>
+
+    <script>
+        const songs = [
+            { title: "Sin Ti", artist: "Reik", file: "reiksinti.mp3", img: "amor1.jpeg" },
+            { title: "Pero te conocí", artist: "Reik", file: "peroteconoci.mp3", img: "amor2.jpeg" },
+            { title: "Te voy a amar", artist: "Axel", file: "amar.mp3", img: "amor3.jpeg" },
+            { title: "My One and Only", artist: "Mon Laferte, Natalia Lafourcade, Silvana Estrada", file: "myone.mp3", img: "caleb1.jpeg" }
+        ];
+
+        let currentSongIndex = 0;
+        let isPlaying = false;
+
+        const audio = document.getElementById('audio-player');
+        const playBtn = document.getElementById('playBtn');
+        const disk = document.getElementById('disk');
+        const songTitle = document.getElementById('song-title');
+        const songArtist = document.getElementById('song-artist');
+        const bars = document.querySelectorAll('.bar');
+        const playlistContainer = document.getElementById('playlist');
+
+        function loadSong(index) {
+            const song = songs[index];
+            songTitle.innerText = song.title;
+            songArtist.innerText = song.artist;
+            audio.src = song.file;
+            
+            // Aplicar imagen con fallback si no existe
+            disk.style.backgroundImage = `url('${song.img}')`;
+            
+            updatePlaylistUI();
+        }
+
+        function updatePlaylistUI() {
+            playlistContainer.innerHTML = '';
+            songs.forEach((song, index) => {
+                const div = document.createElement('div');
+                div.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
+                div.innerHTML = `<span>${index + 1}. ${song.title}</span> <span>${song.artist}</span>`;
+                div.onclick = () => {
+                    currentSongIndex = index;
+                    loadSong(index);
+                    playMusic();
+                };
+                playlistContainer.appendChild(div);
+            });
+        }
+
+        function playMusic() {
+            audio.play().then(() => {
+                isPlaying = true;
+                playBtn.innerText = '⏸';
+                disk.classList.add('playing');
+                bars.forEach(bar => bar.classList.add('playing'));
+            }).catch(e => console.log("Error de reproducción: ", e));
+        }
+
+        function pauseMusic() {
+            audio.pause();
+            isPlaying = false;
+            playBtn.innerText = '▶';
+            disk.classList.remove('playing');
+            bars.forEach(bar => bar.classList.remove('playing'));
+        }
+
+        playBtn.addEventListener('click', () => isPlaying ? pauseMusic() : playMusic());
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+            if(isPlaying) playMusic();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+            if(isPlaying) playMusic();
+        });
+
+        audio.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+            playMusic();
+        });
+
+        // Inicialización
+        loadSong(currentSongIndex);
+    </script>
+</body>
+</html>

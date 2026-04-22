@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Mundo ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: #0f0f0f; /* Fondo oscuro elegante */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        h1 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
+        h1 span { color: #ff4d6d; }
+        p { opacity: 0.7; font-weight: 300; }
+
+        /* Contenedor de Botones (Cards) */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+            animation: slideUp 1s ease forwards;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Efecto Glow al pasar el mouse */
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 77, 109, 0.1);
+            border-color: #ff4d6d;
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.2);
+        }
+
+        .card i { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .card p { font-size: 0.85rem; opacity: 0.6; }
+
+        /* Iconos Simbolizados con Emojis (puedes usar FontAwesome si prefieres) */
+        .icon { font-size: 40px; margin-bottom: 15px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(50px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Adorno de fondo */
+        .glow {
+            position: fixed;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(50px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow" style="top: -100px; left: -100px;"></div>
+    <div class="glow" style="bottom: -100px; right: -100px;"></div>
+
+    <header>
+        <h1>Bienvenida, <span>Mariana</span></h1>
+        <p>Este es nuestro pequeño rincón en el infinito.</p>
+    </header>
+
+    <div class="menu-grid">
+        <a href="index.html" class="card">
+            <div class="icon">🪐</div>
+            <h3>Nuestro Universo</h3>
+            <p>Viaja por las estrellas que guardan nuestros mensajes.</p>
+        </a>
+
+        <a href="momentos.html" class="card">
+            <div class="icon">📸</div>
+            <h3>Momentos</h3>
+            <p>Un álbum de fotos solo para nosotros dos.</p>
+        </a>
+            
+        <a href="carta.html" class="card">
+            <div class="icon">💌</div>
+            <h3>Cartas Mágicas</h3>
+            <p>Cosas que mi corazón quiere decirte hoy.</p>
+        </a>
+
+        <a href="playlist.html" class="card">
+            <div class="icon">🎸</div>
+            <h3>Nuestra Playlist</h3>
+            <p>Las canciones que me hacen pensar en ti.</p>
+        </a>
+    </div>
+
+    <footer style="margin-top: 50px; opacity: 0.4; font-size: 0.7rem; padding-bottom: 30px;">
+        Creado con amor por Caleb para el amor de su vida.
+    </footer>
+
+</body>
+</html>
